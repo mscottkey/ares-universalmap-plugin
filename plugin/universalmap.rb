@@ -15,29 +15,22 @@ module AresMUSH
       case cmd.root
       when 'umap'
         case cmd.switch
-        when 'create'
-          return MapCreateCmd
-        when 'view'
-          return MapViewCmd
-        when 'addtoken'
-          return MapAddTokenCmd
-        when 'move'
-          return MapMoveCmd
-        when 'addobject'
-          return MapAddObjectCmd
-        when 'reveal'
-          return MapRevealCmd
-        when 'hide'
-          return MapHideCmd
-        when 'delete'
-          return MapDeleteCmd
-        when 'uninstall'
-          return MapUninstallCmd
+        when 'create' then MapCreateCmd
+        when 'view' then MapViewCmd
+        when 'addtoken' then MapAddTokenCmd
+        when 'move' then MapMoveCmd
+        when 'addobject' then MapAddObjectCmd
+        when 'reveal' then MapRevealCmd
+        when 'hide' then MapHideCmd
+        when 'delete' then MapDeleteCmd
+        when 'uninstall' then MapUninstallCmd
+        else
+          client.emit_failure "Unknown umap command. Try `help umap`."
+          nil
         end
       end
-      nil
     end
-
+    
     def self.get_event_handler(event_name)
       nil
     end
