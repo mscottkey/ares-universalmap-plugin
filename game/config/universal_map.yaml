@@ -1,6 +1,20 @@
 universal_map:
   default_mode: grid
   default_fog: true
+  grid:
+    default_width: 10
+    default_height: 10
+  abstract:
+    zone_order:
+      - Near
+      - Medium
+      - Far
+      - Extreme
+    zone_descriptions:
+      Near: "Close quarters combat and tight spaces."
+      Medium: "Comfortable range for ranged attacks."
+      Far: "Distant enough to require movement."
+      Extreme: "Sensor range or beyond visual line of sight."
 
   shortcuts:
     mp: map

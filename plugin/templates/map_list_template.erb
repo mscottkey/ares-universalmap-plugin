@@ -1,0 +1,10 @@
+%lh
+%xhMap List%xn
+
+<% maps.each do |map| %>
+%xh<%= map.id.to_s.ljust(3) %>%xn <%= map.title.ljust(30) %>
+  Mode: <%= map.mode.capitalize.ljust(10) %> | Fog: <%= fog(map) %>
+  Tokens: <%= token_count(map) %> | Objects: <%= object_count(map) %>
+<% end %>
+
+%lf

@@ -20,8 +20,13 @@ module AresMUSH
 
       def handle
         map = UniversalMapGrid[self.map_id]
-        url = "#{Website.portal_url}/map/#{map.id}"
-        client.emit_success t('map.view_url', url: url)
+        if (!map)
+          client.emit_failure t('map.not_found')
+          return
+        end
+      
+        client.emit_success t('map.view_url', url: "#{Website.portal_url}/map/#{map.id}")
+        client.emit MapViewTemplate.new(map).render
       end
     end
   end

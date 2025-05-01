@@ -1,0 +1,10 @@
+%lh
+%xhMap View: <%= map.title %> [%xn<%= map.mode.capitalize %> | Fog: <%= map.fog_enabled ? "Yes" : "No" %>%xh]%xn
+
+<% if map.mode == 'grid' %>
+<%= render_grid %>
+<% else %>
+<%= render_abstract %>
+<% end %>
+
+%lf
