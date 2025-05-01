@@ -14,12 +14,12 @@ module AresMUSH
       end
 
       def check_map_exists
-        return t('map.not_found') if !UniversalMap[self.map_id]
+        return t('map.not_found') if !UniversalMapGrid[self.map_id]
         return nil
       end
 
       def handle
-        map = UniversalMap[self.map_id]
+        map = UniversalMapGrid[self.map_id]
         url = "#{Website.portal_url}/map/#{map.id}"
         client.emit_success t('map.view_url', url: url)
       end

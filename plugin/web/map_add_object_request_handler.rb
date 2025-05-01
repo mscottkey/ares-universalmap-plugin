@@ -9,7 +9,7 @@ module AresMUSH
         object_type = request.args[:type]
         coords = request.args[:coords]
 
-        map = UniversalMap[map_id]
+        map = UniversalMapGrid[map_id]
         return { c_error: t('map.not_found') } if !map
 
         if map.mode == 'grid'

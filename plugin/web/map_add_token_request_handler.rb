@@ -5,7 +5,7 @@ module AresMUSH
         error = Website.check_login(request)
         return error if error
 
-        map = UniversalMap[request.args[:map_id]]
+        map = UniversalMapGrid[request.args[:map_id]]
         return { c_error: t('map.not_found') } if !map
 
         name = request.args[:name]

@@ -1,6 +1,6 @@
 module AresMUSH
 
-  class UniversalMap < Ohm::Model
+  class UniversalMapGrid < Ohm::Model
     include ObjectModel
     include FindByName
 
