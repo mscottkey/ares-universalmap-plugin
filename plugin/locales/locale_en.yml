@@ -1,0 +1,17 @@
+en:
+  map:
+    created: "Map '%{title}' created with ID %{id}."
+    not_found: "That map could not be found."
+    token_not_found: "That token could not be found."
+    token_name_required: "You must specify a name for the token."
+    token_moved: "%{name} has been moved."
+    object_added: "%{name} has been added to the map."
+    invalid_coords: "Coordinates must be in the format x,y (e.g. 3,4)."
+    missing_zone: "You must specify a zone."
+    missing_reveal_target: "You must specify a location to reveal or hide."
+    revealed: "Revealed %{area} on the map."
+    hidden: "Fog reapplied to %{area} on the map."
+    token_added: "%{name} has been added to the map."
+    view_url: "Map view URL: %{url}"
+    deleted: "Map %{id} has been deleted."
+    uninstalled: "Universal Map uninstalled. Deleted %{count} map(s)."
