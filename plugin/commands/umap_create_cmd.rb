@@ -1,5 +1,5 @@
 module AresMUSH
-  module UniversalMap
+  module Universalmap
     class UmapCreateCmd
       include CommandHandler
 

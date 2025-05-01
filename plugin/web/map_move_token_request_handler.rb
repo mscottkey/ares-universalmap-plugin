@@ -1,5 +1,5 @@
 module AresMUSH
-  module UniversalMap
+  module Universalmap
     class MapMoveTokenRequestHandler
       def handle(request)
         error = Website.check_login(request)

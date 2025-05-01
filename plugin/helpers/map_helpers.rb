@@ -1,5 +1,5 @@
 module AresMUSH
-  module UniversalMap
+  module Universalmap
     module MapHelpers
 
       def self.format_object(object_key, web: false)
