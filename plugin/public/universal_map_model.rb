@@ -37,6 +37,8 @@ module AresMUSH
     attribute :visibility, :default => "public"  # "public" or "gm"
     attribute :character_id   # Optional reference to a Character
     reference :map, "AresMUSH::UniversalMapGrid"
+
+    index :map_id
   end
 
   class UniversalMapObject < Ohm::Model
@@ -48,6 +50,8 @@ module AresMUSH
     attribute :zone
     attribute :visibility, :default => "public"
     reference :map, "AresMUSH::UniversalMapGrid"
+
+    index :map_id
   end
 
 end
