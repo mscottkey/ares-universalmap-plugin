@@ -2,10 +2,11 @@ module AresMUSH
   module UniversalMap
     class MapRequestHandler
       def handle(request)
-        map_id = request.args[:id]
-        map = AresMUSH::UniversalMap[map_id]
+        error = Website.check_login(request)
+        return error if error
 
-        return { error: "Map not found." } unless map
+        map = UniversalMap[request.args[:id]]
+        return { c_error: t('map.not_found') } if !map
 
         {
           id: map.id,
@@ -18,22 +19,19 @@ module AresMUSH
               name: t.name,
               x: t.x,
               y: t.y,
-              zone: t.zone,
-              icon_url: t.icon_url,
-              visibility: t.visibility
+              zone: t.zone
             }
           end,
           objects: map.objects.map do |o|
             {
               id: o.id,
-              type: o.type,
+              type: o.object_type,
+              label: MapHelpers.format_object(o.object_type, web: true),
               x: o.x,
               y: o.y,
-              zone: o.zone,
-              visibility: o.visibility
+              zone: o.zone
             }
-          end,
-          fog_data: map.fog_data
+          end
         }
       end
     end

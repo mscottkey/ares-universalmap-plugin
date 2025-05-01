@@ -1,20 +1,15 @@
-map_settings:
-  default_mode: abstract
-  default_fog_of_war: true
+universal_map:
+  default_mode: grid
+  default_fog: true
 
-combat_plugin:
-  system: fs3combat
-  weapon_config: "fs3combat/fs3combat.yml"
-  use_equipped_weapon: true
-
-terrain_objects:
-  crate:
-    name: "Crate"
-    blocking: true
-    cover_bonus: 2
-    icon_url: "/assets/map_icons/crate.png"
-  asteroid:
-    name: "Asteroid"
-    blocking: true
-    cover_bonus: 3
-    icon_url: "/assets/map_icons/asteroid.png"
+  shortcuts:
+    mp: map
+    mcreate: map/create
+    mview: map/view
+    mtoken: map/addtoken
+    mmove: map/move
+    mobj: map/addobject
+    mhide: map/hide
+    mreveal: map/reveal
+    mdel: map/delete
+    muninstall: map/uninstall

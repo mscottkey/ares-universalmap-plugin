@@ -6,22 +6,22 @@ module AresMUSH
       attr_accessor :map_id
 
       def parse_args
-        self.map_id = cmd.args
+        self.map_id = integer_arg(cmd.args)
       end
 
       def required_args
         [ self.map_id ]
       end
 
-      def handle
-        map = AresMUSH::UniversalMap[self.map_id]
-        if (!map)
-          client.emit_failure "Map not found."
-          return
-        end
+      def check_map_exists
+        return t('map.not_found') if !UniversalMap[self.map_id]
+        return nil
+      end
 
+      def handle
+        map = UniversalMap[self.map_id]
         url = "#{Website.portal_url}/map/#{map.id}"
-        client.emit_success "View map '#{map.title}' here: #{url}"
+        client.emit_success t('map.view_url', url: url)
       end
     end
   end

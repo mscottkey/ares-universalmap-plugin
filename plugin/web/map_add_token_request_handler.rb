@@ -2,28 +2,41 @@ module AresMUSH
   module UniversalMap
     class MapAddTokenRequestHandler
       def handle(request)
-        map_id = request.args[:map_id]
-        map = AresMUSH::UniversalMap[map_id]
-        return { error: "Map not found." } unless map
+        error = Website.check_login(request)
+        return error if error
+
+        map = UniversalMap[request.args[:map_id]]
+        return { c_error: t('map.not_found') } if !map
 
         name = request.args[:name]
-        x = request.args[:x]
-        y = request.args[:y]
-        zone = request.args[:zone]
-        icon_url = request.args[:icon_url]
-        visibility = request.args[:visibility] || "public"
+        return { c_error: t('map.token_name_required') } if name.blank?
 
-        AresMUSH::UniversalMapToken.create(
+        coords = request.args[:coords]
+        if map.mode == 'grid'
+          return { c_error: t('map.invalid_coords') } if coords.blank? || !(coords =~ /^\d+,\d+$/)
+          x, y = coords.split(',').map(&:to_i)
+        else
+          return { c_error: t('map.missing_zone') } if coords.blank?
+          zone = coords
+        end
+
+        map.tokens << UniversalMapToken.create(
+          map: map,
           name: name,
           x: x,
           y: y,
-          zone: zone,
-          icon_url: icon_url,
-          visibility: visibility,
-          map: map
+          zone: zone
         )
 
-        { success: true }
+        {
+          message: t('map.token_added', name: name),
+          token: {
+            name: name,
+            x: x,
+            y: y,
+            zone: zone
+          }
+        }
       end
     end
   end

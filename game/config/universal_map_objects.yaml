@@ -1,0 +1,21 @@
+universal_map_objects:
+  wall:
+    label: Wall
+    icon: 🧱
+    blocks_movement: true
+    blocks_los: true
+    cover_bonus: none
+
+  crate:
+    label: Crate
+    icon: 📦
+    blocks_movement: false
+    blocks_los: false
+    cover_bonus: light
+
+  tree:
+    label: Tree
+    icon: 🌳
+    blocks_movement: false
+    blocks_los: true
+    cover_bonus: medium

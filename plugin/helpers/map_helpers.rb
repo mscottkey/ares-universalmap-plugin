@@ -1,0 +1,22 @@
+module AresMUSH
+  module UniversalMap
+    module MapHelpers
+
+      def self.format_object(object_key, web: false)
+        config = Global.read_config("universal_map_objects", object_key)
+
+        return object_key.titlecase if config.nil?
+
+        label = config["label"] || object_key.titlecase
+        icon = config["icon"]
+
+        if web && icon
+          "#{icon} #{label}"
+        else
+          label
+        end
+      end
+
+    end
+  end
+end

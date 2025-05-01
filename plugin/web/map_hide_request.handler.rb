@@ -2,26 +2,21 @@ module AresMUSH
   module UniversalMap
     class MapHideRequestHandler
       def handle(request)
-        map_id = request.args[:map_id]
-        location = request.args[:location]
-        map = AresMUSH::UniversalMap[map_id]
-        return { error: "Map not found." } unless map
+        error = Website.check_login(request)
+        return error if error
 
-        key = location_key(map.mode, location)
-        fog = map.fog_data || {}
-        fog[key] = true
-        map.update(fog_data: fog)
+        map = UniversalMap[request.args[:map_id]]
+        return { c_error: t('map.not_found') } if !map
 
-        { success: true }
-      end
+        coords = request.args[:coords]
+        return { c_error: t('map.missing_reveal_target') } if coords.blank?
 
-      def location_key(mode, location)
-        if mode == "grid" && location.include?(",")
-          x, y = location.split(',').map(&:to_i)
-          "grid_#{x}_#{y}"
-        else
-          "zone_#{location.downcase}"
-        end
+        map.revealed.delete(coords)
+        map.save
+
+        {
+          message: t('map.hidden', area: coords)
+        }
       end
     end
   end

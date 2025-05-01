@@ -15,14 +15,14 @@ module AresMUSH
         end
 
         count = 0
-        AresMUSH::UniversalMap.all.each do |map|
+        UniversalMap.all.each do |map|
           map.tokens.each(&:delete)
           map.objects.each(&:delete)
           map.delete
           count += 1
         end
 
-        client.emit_success "✅ Universal Map plugin uninstalled. Deleted #{count} map(s)."
+        client.emit_success t('map.uninstalled', count: count)
       end
     end
   end
