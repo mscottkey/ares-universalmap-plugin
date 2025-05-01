@@ -16,6 +16,7 @@ module AresMUSH
       when 'umap'
         case cmd.switch
         when 'create' then MapCreateCmd
+        when 'list' then MapListCmd
         when 'view' then MapViewCmd
         when 'addtoken' then MapAddTokenCmd
         when 'move' then MapMoveCmd
@@ -24,13 +25,16 @@ module AresMUSH
         when 'hide' then MapHideCmd
         when 'delete' then MapDeleteCmd
         when 'uninstall' then MapUninstallCmd
+        when nil
+          return MapListCmd  # or a help display template
         else
           client.emit_failure "Unknown umap command. Try `help umap`."
-          nil
+          return nil
         end
       end
+      nil
     end
-    
+
     def self.get_event_handler(event_name)
       nil
     end

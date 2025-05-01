@@ -8,14 +8,14 @@ This action is **permanent** and **cannot be undone**.
 
 To initiate the uninstall process:
 
-@map/uninstall
+umap/uninstall
 
 
 You will be prompted with a confirmation message.
 
 To confirm:
 
-@map/uninstall/confirm
+umap/uninstall/confirm
 
 
 Only Ares administrators may use this command.
