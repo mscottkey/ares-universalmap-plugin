@@ -1,0 +1,4 @@
+name: universal_map
+version: 0.1
+author: Avarice
+description: Tactical + narrative map system for AresMUSH. Supports abstract and grid maps, fog of war, terrain, and token tracking.

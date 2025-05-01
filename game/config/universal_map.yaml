@@ -1,0 +1,20 @@
+map_settings:
+  default_mode: abstract
+  default_fog_of_war: true
+
+combat_plugin:
+  system: fs3combat
+  weapon_config: "fs3combat/fs3combat.yml"
+  use_equipped_weapon: true
+
+terrain_objects:
+  crate:
+    name: "Crate"
+    blocking: true
+    cover_bonus: 2
+    icon_url: "/assets/map_icons/crate.png"
+  asteroid:
+    name: "Asteroid"
+    blocking: true
+    cover_bonus: 3
+    icon_url: "/assets/map_icons/asteroid.png"
