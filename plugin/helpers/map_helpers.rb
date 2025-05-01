@@ -17,6 +17,18 @@ module AresMUSH
         end
       end
 
+      def self.safe_tokens(map)
+        map.tokens.to_a
+      rescue Ohm::IndexNotFound
+        []
+      end
+  
+      def self.safe_objects(map)
+        map.objects.to_a
+      rescue Ohm::IndexNotFound
+        []
+      end
+
     end
   end
 end

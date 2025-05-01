@@ -14,7 +14,13 @@ module AresMUSH
       end
 
       def handle
-        map = AresMUSH::UniversalMapGrid.find(:title, enactor_room.name).first
+        room_title = enactor_room.name
+        if !room_title
+          client.emit_failure "You are not in a valid room."
+          return
+        end
+      
+        map = AresMUSH::UniversalMapGrid.find(:title, room_title).first
         if !map
           client.emit_failure "No map found for this room."
           return
