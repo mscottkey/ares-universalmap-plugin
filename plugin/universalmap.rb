@@ -15,18 +15,18 @@ module AresMUSH
       case cmd.root
       when 'umap'
         case cmd.switch
-        when 'create' then MapCreateCmd
-        when 'list' then MapListCmd
-        when 'view' then MapViewCmd
-        when 'addtoken' then MapAddTokenCmd
-        when 'move' then MapMoveCmd
-        when 'addobject' then MapAddObjectCmd
-        when 'reveal' then MapRevealCmd
-        when 'hide' then MapHideCmd
-        when 'delete' then MapDeleteCmd
-        when 'uninstall' then MapUninstallCmd
+        when 'create' then UmapCreateCmd
+        when 'list' then UmapListCmd
+        when 'view' then UmapViewCmd
+        when 'addtoken' then UmapAddTokenCmd
+        when 'move' then UmapMoveCmd
+        when 'addobject' then UmapAddObjectCmd
+        when 'reveal' then UmapRevealCmd
+        when 'hide' then UmapHideCmd
+        when 'delete' then UmapDeleteCmd
+        when 'uninstall' then UmapUninstallCmd
         when nil
-          return MapListCmd  # or a help display template
+          return UmapListCmd  # or a help display template
         else
           client.emit_failure "Unknown umap command. Try `help umap`."
           return nil

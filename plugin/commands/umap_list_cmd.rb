@@ -1,6 +1,6 @@
 module AresMUSH
   module UniversalMap
-    class MapListCmd
+    class UmapListCmd
       include CommandHandler
 
       def handle

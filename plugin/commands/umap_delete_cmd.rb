@@ -1,6 +1,6 @@
 module AresMUSH
   module UniversalMap
-    class MapViewCmd
+    class UmapDeleteCmd
       include CommandHandler
 
       attr_accessor :map_id
@@ -13,6 +13,11 @@ module AresMUSH
         [ self.map_id ]
       end
 
+      def check_admin
+        return t('dispatcher.not_allowed') if !enactor.is_admin?
+        return nil
+      end
+
       def check_map_exists
         return t('map.not_found') if !UniversalMapGrid[self.map_id]
         return nil
@@ -20,13 +25,11 @@ module AresMUSH
 
       def handle
         map = UniversalMapGrid[self.map_id]
-        if (!map)
-          client.emit_failure t('map.not_found')
-          return
-        end
-      
-        client.emit_success t('map.view_url', url: "#{Website.portal_url}/map/#{map.id}")
-        client.emit MapViewTemplate.new(map).render
+        map.tokens.each(&:delete)
+        map.objects.each(&:delete)
+        map.delete
+
+        client.emit_success t('map.deleted', id: self.map_id)
       end
     end
   end

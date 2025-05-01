@@ -1,6 +1,6 @@
 module AresMUSH
   module UniversalMap
-    class MapCreateCmd
+    class UmapCreateCmd
       include CommandHandler
 
       attr_accessor :title, :options

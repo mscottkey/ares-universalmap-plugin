@@ -1,6 +1,6 @@
 module AresMUSH
   module UniversalMap
-    class MapHideCmd
+    class UmapHideCmd
       include CommandHandler
 
       attr_accessor :location

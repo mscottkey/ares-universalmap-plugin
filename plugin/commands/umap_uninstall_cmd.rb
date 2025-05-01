@@ -1,6 +1,6 @@
 module AresMUSH
   module UniversalMap
-    class MapUninstallCmd
+    class UmapUninstallCmd
       include CommandHandler
 
       def check_admin
