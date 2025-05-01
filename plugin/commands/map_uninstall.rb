@@ -1,0 +1,29 @@
+module AresMUSH
+  module UniversalMap
+    class MapUninstallCmd
+      include CommandHandler
+
+      def check_admin
+        return t('dispatcher.not_allowed') unless enactor.is_admin?
+        return nil
+      end
+
+      def handle
+        if !cmd.confirmed?
+          client.emit "⚠️ This will permanently delete all Universal Map data. To confirm, type:\n%xh@map/uninstall/confirm%xn"
+          return
+        end
+
+        count = 0
+        AresMUSH::UniversalMap.all.each do |map|
+          map.tokens.each(&:delete)
+          map.objects.each(&:delete)
+          map.delete
+          count += 1
+        end
+
+        client.emit_success "✅ Universal Map plugin uninstalled. Deleted #{count} map(s)."
+      end
+    end
+  end
+end

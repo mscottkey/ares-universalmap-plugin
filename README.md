@@ -33,7 +33,17 @@ Type `help map` in-game for a full list of commands and usage examples.
 
 ## Uninstall
 
-You will need to remove all the database fields and objects from the database, then remove the plugin itself. See removing plugins for help.
+To fully remove this plugin:
+
+1. Run `@map/uninstall` to delete all map data and associated tokens/objects.
+2. Delete the following from your game server:
+   - `plugins/universal_map/`
+   - `game/config/universal_map.yml`
+   - `webportal/assets/universal_map/map.bundle.js`
+3. Remove `universal_map` from `game/config/plugins.yml`.
+4. Restart your game server.
+
+For more details, see [Ares plugin removal guide](https://aresmush.com/tutorials/code/plugins.html#removing-plugins).
 
 ---
 
