@@ -35,7 +35,7 @@ module AresMUSH
     attribute :icon_url
     attribute :visibility, :default => "public"  # "public" or "gm"
     attribute :character_id   # Optional reference to a Character
-    reference :map, "AresMUSH::UniversalMap"
+    reference :map, "AresMUSH::UniversalMapGrid"
   end
 
   class UniversalMapObject < Ohm::Model
@@ -46,7 +46,7 @@ module AresMUSH
     attribute :y
     attribute :zone
     attribute :visibility, :default => "public"
-    reference :map, "AresMUSH::UniversalMap"
+    reference :map, "AresMUSH::UniversalMapGrid"
   end
 
 end
