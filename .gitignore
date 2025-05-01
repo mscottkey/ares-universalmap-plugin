@@ -22,6 +22,7 @@ log/
 .idea/
 .env
 *.pid
+.idx/
 
 # Mac / Linux metadata
 *.sublime-workspace
