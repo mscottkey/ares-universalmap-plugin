@@ -1,12 +1,36 @@
 # Changelog
 
-## v0.1.0 — Initial Public Release
+All notable changes to the Universal Map Plugin will be documented in this file.
 
-- Added abstract and grid map support
-- Added fog of war (reveal/hide by zone or square)
-- Added terrain objects (e.g. walls, crates)
-- Added tokens (characters, NPCs, ships)
-- Built React-based portal viewer for maps
-- Added `/map create`, `/map view`, `/map addtoken`, `/map move`, `/map reveal`, `/map hide`, `/map addobject`, `/map delete`
-- Added admin uninstall command: `@map/uninstall` with `/confirm` support
-- All data is YAML- and portal-configurable
+---
+
+## [v0.1.0] – Initial Release
+
+🗓 Released: 2025-05-01
+
+### ✨ Features
+
+- Added support for abstract and grid map modes
+- Created web portal integration for viewing maps
+- Added token management: `@map/addtoken`, `@map/move`
+- Added terrain object support: `@map/addobject`
+- Implemented fog of war: `@map/reveal`, `@map/hide`
+- Admin-safe uninstall with confirmation: `@map/uninstall/confirm`
+
+### 🗂 Configuration
+
+- `universal_map.yml` – Command shortcuts and plugin settings
+- `universal_map_objects.yml` – Object types, icons, and cover rules
+
+### ✅ Ares Compatibility
+
+- Supports `plugin/install` and `plugin/uninstall`
+- Auto-loads commands, web request handlers, and help files
+- Built using Ares plugin best practices
+
+---
+
+Future versions will include:
+- Initiative and range mechanics
+- Stealth and hidden token modes
+- GM-driven scene-based map triggers
