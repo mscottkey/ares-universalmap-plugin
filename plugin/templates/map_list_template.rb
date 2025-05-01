@@ -14,11 +14,11 @@ module AresMUSH
       end
 
       def token_count(map)
-        map.tokens.count
+        map.tokens.size
       end
 
       def object_count(map)
-        map.objects.count
+        map.objects.size
       end
     end
   end
