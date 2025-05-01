@@ -15,24 +15,34 @@ module AresMUSH
       case cmd.root
       when 'umap'
         case cmd.switch
-        when 'create' then UmapCreateCmd
-        when 'list' then UmapListCmd
-        when 'view' then UmapViewCmd
-        when 'addtoken' then UmapAddTokenCmd
-        when 'move' then UmapMoveCmd
-        when 'addobject' then UmapAddObjectCmd
-        when 'reveal' then UmapRevealCmd
-        when 'hide' then UmapHideCmd
-        when 'delete' then UmapDeleteCmd
-        when 'uninstall' then UmapUninstallCmd
+        when 'create'
+          return UmapCreateCmd
+        when 'list'
+          return UmapListCmd
+        when 'view'
+          return UmapViewCmd
+        when 'addtoken'
+          return UmapAddTokenCmd
+        when 'move'
+          return UmapMoveCmd
+        when 'addobject'
+          return UmapAddObjectCmd
+        when 'reveal'
+          return UmapRevealCmd
+        when 'hide'
+          return UmapHideCmd
+        when 'delete'
+          return UmapDeleteCmd
+        when 'uninstall'
+          return UmapUninstallCmd
         when nil
-          return UmapListCmd  # or a help display template
+          return UmapListCmd  # Optional: show help instead
         else
           client.emit_failure "Unknown umap command. Try `help umap`."
           return nil
         end
       end
-      nil
+      return nil
     end
 
     def self.get_event_handler(event_name)
@@ -54,7 +64,7 @@ module AresMUSH
       when "mapHide"
         return MapHideRequestHandler
       end
-      nil
+      return nil
     end
 
   end
