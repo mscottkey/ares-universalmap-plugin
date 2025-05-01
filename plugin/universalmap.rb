@@ -13,7 +13,7 @@ module AresMUSH
 
     def self.get_cmd_handler(client, cmd, enactor)
       case cmd.root
-      when 'map'
+      when 'umap'
         case cmd.switch
         when 'create'
           return MapCreateCmd
@@ -44,7 +44,7 @@ module AresMUSH
 
     def self.get_web_request_handler(request)
       case request.cmd
-      when "map"
+      when "umap"
         return MapRequestHandler
       when "mapToken"
         return MapAddTokenRequestHandler

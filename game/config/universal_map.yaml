@@ -16,14 +16,7 @@ universal_map:
       Far: "Distant enough to require movement."
       Extreme: "Sensor range or beyond visual line of sight."
 
-  shortcuts:
-    mp: map
-    mcreate: map/create
-    mview: map/view
-    mtoken: map/addtoken
-    mmove: map/move
-    mobj: map/addobject
-    mhide: map/hide
-    mreveal: map/reveal
-    mdel: map/delete
-    muninstall: map/uninstall
+  shortcuts: 
+
+    gridmap: umap
+    maps: umap
