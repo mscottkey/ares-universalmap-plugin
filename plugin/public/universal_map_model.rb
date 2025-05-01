@@ -5,6 +5,7 @@ module AresMUSH
     include FindByName
 
     attribute :title
+    index :title
     attribute :mode             # "abstract" or "grid"
     attribute :fog_enabled, :type => DataType::Boolean
     attribute :fog_data, :type => DataType::Hash, :default => {}
