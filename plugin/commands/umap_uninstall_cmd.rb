@@ -15,7 +15,7 @@ module AresMUSH
         end
 
         count = 0
-        UniversalMap.all.each do |map|
+        UniversalMapGrid.all.each do |map|
           map.tokens.each(&:delete)
           map.objects.each(&:delete)
           map.delete

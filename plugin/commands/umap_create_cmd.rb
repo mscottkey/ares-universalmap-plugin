@@ -19,7 +19,7 @@ module AresMUSH
         mode = self.options.include?("grid") ? "grid" : "abstract"
         fog = self.options.include?("fog")
 
-        map = UniversalMap.create(
+        map = UniversalMapGrid.create(
           title: self.title,
           mode: mode,
           fog_enabled: fog,
