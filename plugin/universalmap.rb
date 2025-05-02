@@ -67,7 +67,9 @@ module AresMUSH
       return nil
     end
 
-    def self.load
+    def load
+      Global.logger.warn "🔥 Plugin load() method was called for universalmap"
+      
       UniversalMapObject.all.each { |o| o.update(visibility: o.visibility) }
       UniversalMapToken.all.each { |t| t.update(visibility: t.visibility) }
       Global.logger.info "✅ universalmap: Reindexed tokens and objects on plugin load."
