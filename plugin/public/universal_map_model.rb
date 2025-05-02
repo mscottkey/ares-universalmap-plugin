@@ -31,8 +31,8 @@ module AresMUSH
     include ObjectModel
 
     attribute :name
-    attribute :x
-    attribute :y
+    attribute :x, :type => DataType::Integer
+    attribute :y, :type => DataType::Integer
     attribute :zone           # Used for abstract mode
     attribute :icon_url
     attribute :visibility, :default => "public"  # "public" or "gm"
@@ -46,8 +46,8 @@ module AresMUSH
     include ObjectModel
 
     attribute :object_type           # e.g., "crate", "asteroid", etc.
-    attribute :x
-    attribute :y
+    attribute :x, :type => DataType::Integer
+    attribute :y, :type => DataType::Integer
     attribute :zone
     attribute :visibility, :default => "public"
     reference :map, "AresMUSH::UniversalMapGrid"
