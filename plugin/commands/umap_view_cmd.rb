@@ -25,7 +25,8 @@ module AresMUSH
           return
         end
       
-        client.emit_success t('map.view_url', url: "#{Website.portal_url}/map/#{map.id}")
+        url = "#{Global.read_config('website', 'portal_url')}/map/#{map.id}"
+        client.emit_success t('map.view_url', url: url)
         client.emit MapViewTemplate.new(map).render
       end
     end
