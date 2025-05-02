@@ -67,13 +67,24 @@ module AresMUSH
 
         # Place objects
         MapHelpers.safe_objects(map).each do |obj|
-          next unless valid_coords?(obj.x, obj.y, width, height)
+          Global.logger.debug "📦 Evaluating object: #{obj.inspect}"
+        
+          unless valid_coords?(obj.x, obj.y, width, height)
+            Global.logger.warn "❌ Skipped: invalid coords x=#{obj.x}, y=#{obj.y}"
+            next
+          end
+        
           coord = "#{obj.x},#{obj.y}"
-          next if map.fog_enabled && !map.revealed.include?(coord)
+          if map.fog_enabled && !map.revealed.include?(coord)
+            Global.logger.warn "⛔ Skipped due to fog: #{coord}"
+            next
+          end
+        
           symbol = object_symbol(obj.object_type)
-          Global.logger.debug "📦 Placing #{obj.object_type} (#{symbol}) at [#{obj.x},#{obj.y}] on map #{map.id}"
+          Global.logger.debug "✅ Placing #{obj.object_type} (#{symbol}) at [#{obj.x},#{obj.y}] on map #{map.id}"
           grid[obj.y][obj.x] = symbol
         end
+        
 
         # Place tokens
         MapHelpers.safe_tokens(map).each do |tok|
