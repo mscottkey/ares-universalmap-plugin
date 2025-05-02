@@ -16,20 +16,20 @@ module AresMUSH
         end
       end
 
-      def self.safe_tokens(map)
-        UniversalMapToken.all.select { |t| t.map_id == map.id }
-      rescue => e
-        Global.logger.warn "🔧 Failed to fetch tokens (fallback): #{e}"
-        []
-      end
-
       def self.safe_objects(map)
-        UniversalMapObject.all.select { |o| o.map_id == map.id }
+        UniversalMapObject.all.select { |o| o.map_id == map.id.to_s }
       rescue => e
         Global.logger.warn "🔧 Failed to fetch objects (fallback): #{e}"
         []
       end
-
+      
+      def self.safe_tokens(map)
+        UniversalMapToken.all.select { |t| t.map_id == map.id.to_s }
+      rescue => e
+        Global.logger.warn "🔧 Failed to fetch tokens (fallback): #{e}"
+        []
+      end
+      
     end
   end
 end
