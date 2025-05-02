@@ -63,12 +63,16 @@ module AresMUSH
           end
         end
 
+        Global.logger.debug "🌫️ Fog is #{map.fog_enabled}, revealed: #{map.revealed}"
+
         # Place objects
         MapHelpers.safe_objects(map).each do |obj|
           next unless valid_coords?(obj.x, obj.y, width, height)
           coord = "#{obj.x},#{obj.y}"
           next if map.fog_enabled && !map.revealed.include?(coord)
-          grid[obj.y][obj.x] = object_symbol(obj.object_type)
+          symbol = object_symbol(obj.object_type)
+          Global.logger.debug "📦 Placing #{obj.object_type} (#{symbol}) at [#{obj.x},#{obj.y}] on map #{map.id}"
+          grid[obj.y][obj.x] = symbol
         end
 
         # Place tokens

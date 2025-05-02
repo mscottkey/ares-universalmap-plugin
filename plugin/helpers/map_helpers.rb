@@ -19,14 +19,14 @@ module AresMUSH
       def self.safe_tokens(map)
         UniversalMapToken.find(map: map).to_a
       rescue => e
-        Global.logger.warn "🔧 Failed to fetch tokens: \#{e}"
+        Global.logger.warn "🔧 Failed to fetch tokens: #{e}"
         []
       end
 
       def self.safe_objects(map)
         UniversalMapObject.find(map: map).to_a
       rescue => e
-        Global.logger.warn "🔧 Failed to fetch objects: \#{e}"
+        Global.logger.warn "🔧 Failed to fetch objects: #{e}"
         []
       end
     end
