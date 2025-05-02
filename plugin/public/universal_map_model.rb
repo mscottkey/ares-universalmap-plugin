@@ -9,6 +9,7 @@ module AresMUSH
     attribute :mode             # "abstract" or "grid"
     attribute :fog_enabled, :type => DataType::Boolean
     attribute :fog_data, :type => DataType::Hash, :default => {}
+    attribute :revealed, :type => DataType::Array, :default => []
     attribute :created_at, :type => DataType::Time
 
     collection :tokens, "AresMUSH::UniversalMapToken"
