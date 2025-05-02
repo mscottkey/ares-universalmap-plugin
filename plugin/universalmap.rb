@@ -29,6 +29,8 @@ module AresMUSH
           return UmapAddObjectCmd
         when 'reveal'
           return UmapRevealCmd
+        when 'reindex'
+          return UmapReindexCmd
         when 'hide'
           return UmapHideCmd
         when 'delete'
@@ -69,7 +71,7 @@ module AresMUSH
 
     def load
       Global.logger.warn "🔥 Plugin load() method was called for universalmap"
-      
+
       UniversalMapObject.all.each { |o| o.update(visibility: o.visibility) }
       UniversalMapToken.all.each { |t| t.update(visibility: t.visibility) }
       Global.logger.info "✅ universalmap: Reindexed tokens and objects on plugin load."
