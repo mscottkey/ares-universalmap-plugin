@@ -44,7 +44,7 @@ module AresMUSH
   class UniversalMapObject < Ohm::Model
     include ObjectModel
 
-    attribute :type           # e.g., "crate", "asteroid", etc.
+    attribute :object_type           # e.g., "crate", "asteroid", etc.
     attribute :x
     attribute :y
     attribute :zone
