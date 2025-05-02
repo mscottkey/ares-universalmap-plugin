@@ -32,14 +32,13 @@ module AresMUSH
           zone = self.location
         end
 
-        map.tokens << UniversalMapToken.create(
+        UniversalMapToken.create(
           map: map,
           name: self.name,
           x: x,
           y: y,
           zone: zone
         )
-
         client.emit_success t('map.token_added', name: self.name)
       end
     end

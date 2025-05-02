@@ -1,32 +1,51 @@
 module AresMUSH
   module Universalmap
-    class UmapCreateCmd
+    class UmapAddObjectCmd
       include CommandHandler
 
-      attr_accessor :title, :options
+      attr_accessor :map_id, :object_type, :location
 
       def parse_args
-        args = cmd.parse_args(ArgParser.arg1_equals_optional_arg2)
-        self.title = titlecase_arg(args.arg1)
-        self.options = downcase_arg(args.arg2 || "")
+        args = cmd.parse_args(ArgParser.arg1_equals_arg2_slash_arg3)
+        self.map_id = integer_arg(args.arg1)
+        self.object_type = downcase_arg(args.arg2)
+        self.location = args.arg3
       end
 
       def required_args
-        [ self.title ]
+        [ self.map_id, self.object_type, self.location ]
+      end
+
+      def check_map_exists
+        return t('map.not_found') if !UniversalMapGrid[self.map_id]
+        return nil
       end
 
       def handle
-        mode = self.options.include?("grid") ? "grid" : "abstract"
-        fog = self.options.include?("fog")
+        map = UniversalMapGrid[self.map_id]
 
-        map = Universalmap.create(
-          title: self.title,
-          mode: mode,
-          fog_enabled: fog,
-          revealed: []
+        if map.mode == 'grid'
+          unless self.location =~ /^\d+,\d+$/
+            client.emit_failure t('map.invalid_coords')
+            return
+          end
+          x, y = self.location.split(',').map(&:to_i)
+          zone = nil
+        else
+          x, y = nil, nil
+          zone = self.location
+        end
+
+        UniversalMapObject.create(
+          map: map,
+          object_type: self.object_type,
+          x: x,
+          y: y,
+          zone: zone,
+          visibility: "public"
         )
 
-        client.emit_success t('map.created', title: self.title, id: map.id)
+        client.emit_success t('map.object_added', type: self.object_type)
       end
     end
   end
