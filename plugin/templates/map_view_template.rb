@@ -10,21 +10,21 @@ module AresMUSH
 
       def render_abstract
         zones = Hash.new { |h, k| h[k] = { tokens: [], objects: [] } }
-      
-        (map.tokens + map.objects).each do |thing|
+
+        (MapHelpers.safe_tokens(map) + MapHelpers.safe_objects(map)).each do |thing|
           zone = thing.zone || "Unknown"
           next if map.fog_enabled && !map.revealed.include?(zone)
-      
+
           if thing.is_a?(AresMUSH::UniversalMapToken)
             zones[zone][:tokens] << thing
           else
             zones[zone][:objects] << thing
           end
         end
-      
-        zone_order = Global.read_config("universal_map", "abstract", "zone_order")
+
+        zone_order = Global.read_config("universal_map", "abstract", "zone_order") || zones.keys.sort
         descs = Global.read_config("universal_map", "abstract", "zone_descriptions") || {}
-      
+
         zone_order.map do |zone|
           if map.fog_enabled && !map.revealed.include?(zone)
             "%lh\n%xh[#{zone}]%xn\n  %xk(Fogged)%xn\n%lf"
@@ -36,46 +36,46 @@ module AresMUSH
               %xh[#{zone}]%xn
               %xc#{descs[zone]}%xn
               %xgTokens:%xn
-              #{tokens.join("\n")}
+              #{tokens.any? ? tokens.join("\n") : "  (none)"}
               %xbObjects:%xn
-              #{objects.join("\n")}
+              #{objects.any? ? objects.join("\n") : "  (none)"}
               %lf
             ZONE
           end
         end.compact.join("\n")
       end
-      
-    
+
       def render_grid
         return "This map is not in grid mode." if map.mode != "grid"
 
         width = Global.read_config("universal_map", "grid", "default_width") || 10
         height = Global.read_config("universal_map", "grid", "default_height") || 10
 
-        # Determine boundaries dynamically if needed later
         grid = Array.new(height) { Array.new(width, ".") }
 
-        # Overlay fog (if any)
+        # Overlay fog
         if map.fog_enabled
           (0...height).each do |y|
             (0...width).each do |x|
               coord = "#{x},#{y}"
-              unless map.revealed.include?(coord)
-                grid[y][x] = "░"
-              end
+              grid[y][x] = "░" unless map.revealed.include?(coord)
             end
           end
         end
 
         # Place objects
-        map.objects.each do |obj|
-          next if map.fog_enabled && !map.revealed.include?("#{obj.x},#{obj.y}")
+        MapHelpers.safe_objects(map).each do |obj|
+          next unless valid_coords?(obj.x, obj.y, width, height)
+          coord = "#{obj.x},#{obj.y}"
+          next if map.fog_enabled && !map.revealed.include?(coord)
           grid[obj.y][obj.x] = object_symbol(obj.object_type)
         end
 
         # Place tokens
-        map.tokens.each do |tok|
-          next if map.fog_enabled && !map.revealed.include?("#{tok.x},#{tok.y}")
+        MapHelpers.safe_tokens(map).each do |tok|
+          next unless valid_coords?(tok.x, tok.y, width, height)
+          coord = "#{tok.x},#{tok.y}"
+          next if map.fog_enabled && !map.revealed.include?(coord)
           grid[tok.y][tok.x] = token_symbol(tok.name)
         end
 
@@ -91,7 +91,21 @@ module AresMUSH
       end
 
       def token_symbol(name)
-        name[0,1].upcase
+        name.to_s[0,1].upcase
+      end
+
+      def valid_coords?(x, y, width, height)
+        if x.nil? || y.nil? || !x.is_a?(Integer) || !y.is_a?(Integer)
+          Global.logger.warn "MapViewTemplate: Invalid coords (nil or non-integer): x=#{x.inspect}, y=#{y.inspect}"
+          return false
+        end
+
+        unless x.between?(0, width - 1) && y.between?(0, height - 1)
+          Global.logger.warn "MapViewTemplate: Out-of-bounds object at x=#{x}, y=#{y}"
+          return false
+        end
+
+        true
       end
     end
   end
